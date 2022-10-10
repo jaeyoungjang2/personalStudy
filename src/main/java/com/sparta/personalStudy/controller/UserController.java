@@ -1,6 +1,7 @@
 package com.sparta.personalStudy.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.sparta.personalStudy.domain.User;
 import com.sparta.personalStudy.dto.SignupRequestDto;
 import com.sparta.personalStudy.service.KakaoUserService;
 import com.sparta.personalStudy.service.UserService;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class UserController {
@@ -45,5 +47,11 @@ public class UserController {
     public String kakaoLogin(@RequestParam String code) throws JsonProcessingException {
         kakaoUserService.kakaoLogin(code);
         return "redirect:/";
+    }
+
+    @ResponseBody
+    @GetMapping("/test")
+    public void test() {
+        userService.test();
     }
 }

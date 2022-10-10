@@ -6,7 +6,7 @@ plugins {
 
 group = 'com.sparta'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '8'
+sourceCompatibility = '1.8'
 
 configurations {
 	compileOnly {
@@ -29,6 +29,10 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+	implementation 'org.springframework.boot:spring-boot-starter'
+	runtimeOnly 'mysql:mysql-connector-java'
+
 }
 
 tasks.named('test') {
