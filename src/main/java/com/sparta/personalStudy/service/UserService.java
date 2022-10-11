@@ -46,15 +46,4 @@ public class UserService {
         User user = new User(username, password, email, role);
         userRepository.save(user);
     }
-
-    public void test() {
-
-        User user = new User("aaa", "aaa", "aaa", UserRoleEnum.USER);
-        System.out.println(user);
-        System.out.println(user.getId());
-        System.out.println("-------------------------");
-        User save = userRepository.save(user);
-
-        User user1 = userRepository.findById(1L).get();
-    }
 }

@@ -1,12 +1,14 @@
 package com.sparta.personalStudy.controller;
 
 import com.sparta.personalStudy.domain.Product;
+import com.sparta.personalStudy.domain.User;
 import com.sparta.personalStudy.domain.UserRoleEnum;
 import com.sparta.personalStudy.dto.ProductMypriceRequestDto;
 import com.sparta.personalStudy.dto.ProductRequestDto;
 import com.sparta.personalStudy.security.UserDetailsImpl;
 import com.sparta.personalStudy.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -47,17 +49,40 @@ public class ProductController {
 
     // 로그인한 회원이 등록한 관심 상품 조회
     @GetMapping("/api/products")
-    public List<Product> getProducts(@AuthenticationPrincipal UserDetailsImpl userDetails) {
-        // 로그인 되어 있는 회원 테이블의 ID
+    public Page<Product> getProducts(
+            @RequestParam("page") int page,
+            @RequestParam("size") int size,
+            @RequestParam("sortBy") String sortBy,
+            @RequestParam("isAsc") boolean isAsc,
+            @AuthenticationPrincipal UserDetailsImpl userDetails
+    ) {
         Long userId = userDetails.getUser().getId();
-
-        return productService.getProducts(userId);
+        page = page - 1;
+        return productService.getProducts(userId, page, size, sortBy, isAsc);
     }
 
-    // (관리자용) 등록된 모든 상품 목록 조회
-    @Secured(value = UserRoleEnum.Authority.ADMIN)
+    // (관리자용) 전체 상품 조회
+    @Secured(UserRoleEnum.Authority.ADMIN)
     @GetMapping("/api/admin/products")
-    public List<Product> getAllProducts() {
-        return productService.getAllProducts();
+    public Page<Product> getAllProducts(
+            @RequestParam("page") int page,
+            @RequestParam("size") int size,
+            @RequestParam("sortBy") String sortBy,
+            @RequestParam("isAsc") boolean isAsc
+    ) {
+        page = page -1;
+        return productService.getAllProducts(page, size, sortBy, isAsc);
+    }
+
+    // 상품에 폴더 추가
+    @PostMapping("/api/products/{productId}/folder")
+    public Long addFolder(
+            @PathVariable Long productId,
+            @RequestParam Long folderId,
+            @AuthenticationPrincipal UserDetailsImpl userDetails
+    ) {
+        User user = userDetails.getUser();
+        Product product = productService.addFolder(productId, folderId, user);
+        return product.getId();
     }
 }

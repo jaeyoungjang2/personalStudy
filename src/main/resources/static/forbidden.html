@@ -4,78 +4,78 @@
   <meta charset="UTF-8">
   <title>접근 불가</title>
   <style>
-            html,body{
-                margin:0;
-                padding:0;
-                display:flex;
-                justify-content:center;
-                align-items:center;
-                background-color:salmon;
-                font-family:"Quicksand", sans-serif;
+    html,body{
+      margin:0;
+      padding:0;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      background-color:salmon;
+      font-family:"Quicksand", sans-serif;
 
-            }
+    }
 
-            #container_anim{
-                position:relative;
-                width:100%;
-                height:70%;
-            }
+    #container_anim{
+      position:relative;
+      width:100%;
+      height:70%;
+    }
 
-            #key{
-                position:absolute;
-                top:77%;
-                left:-33%;
-            }
+    #key{
+      position:absolute;
+      top:77%;
+      left:-33%;
+    }
 
-            #text{
-                font-size:4rem;
-                position:absolute;
-                top:55%;
-                width:100%;
-                text-align:center;
-            }
+    #text{
+      font-size:4rem;
+      position:absolute;
+      top:55%;
+      width:100%;
+      text-align:center;
+    }
 
-            #credit{
-                position:absolute;
-                bottom:0;
-                width:100%;
-                text-align:center;
-            }
+    #credit{
+      position:absolute;
+      bottom:0;
+      width:100%;
+      text-align:center;
+    }
 
-            a{
-                color: rgb(115,102,102);
-            }
-        </style>
+    a{
+      color: rgb(115,102,102);
+    }
+  </style>
   <script>
-          var lock = document.querySelector('#lock');
-          var key = document.querySelector('#key');
+    var lock = document.querySelector('#lock');
+    var key = document.querySelector('#key');
 
 
-          function keyAnimate(){
-            dynamics.animate(key, {
-              translateX: 33
-            }, {
-              type:dynamics.easeInOut,
-              duration:500,
-              complete:lockAnimate
-            })
-          }
+    function keyAnimate(){
+      dynamics.animate(key, {
+        translateX: 33
+      }, {
+        type:dynamics.easeInOut,
+        duration:500,
+        complete:lockAnimate
+      })
+    }
 
 
-          function lockAnimate(){
-            dynamics.animate(lock, {
-              rotateZ:-5,
-              scale:0.9
-            }, {
-              type:dynamics.bounce,
-              duration:3000,
-              complete:keyAnimate
-            })
-          }
+    function lockAnimate(){
+      dynamics.animate(lock, {
+        rotateZ:-5,
+        scale:0.9
+      }, {
+        type:dynamics.bounce,
+        duration:3000,
+        complete:keyAnimate
+      })
+    }
 
 
-          setInterval(keyAnimate, 3000);
-        </script>
+    setInterval(keyAnimate, 3000);
+  </script>
 </head>
 <body>
 <div id="container_anim">
